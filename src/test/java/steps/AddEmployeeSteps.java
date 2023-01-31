@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.CommonMethods;
 import utils.Constants;
+import utils.DBUtility;
 import utils.ExcelReader;
 
 import java.util.Iterator;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AddEmployeeSteps extends CommonMethods {
+    String id;
     @When("user clicks on PIM option")
     public void user_clicks_on_pim_option() {
         // WebElement pimOption = driver.findElement(By.id("menu_pim_viewPimModule"));
@@ -152,6 +154,29 @@ public class AddEmployeeSteps extends CommonMethods {
             Thread.sleep(2000);
         }
     }
+    @When("user capture employee")
+    public void user_capture_employee() {
+       id=addEmployeePage.empIdLocator.getAttribute("value");
+
+
+
+
+
+    }
+
+
+
+
+    @Then("added employee is displayed in database")
+    public void added_employee_is_displayed_in_database() {
+        String query=DataBaseSteps.fNamelNameQuery()+id;
+        System.out.println(query);
+       List<Map<String, String>> dataFromDataBase=DBUtility.getListOfMapsFromRset(query);
+        System.out.println(dataFromDataBase);
+
+
+    }
+
 
 }
 
